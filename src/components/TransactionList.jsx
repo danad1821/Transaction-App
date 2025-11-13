@@ -1,4 +1,4 @@
-export default function TransactionList(){
+export default function TransactionList({selectedTransaction}){
     return(
         <></>
     );
