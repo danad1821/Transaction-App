@@ -1,5 +1,36 @@
-export default function TransactionList({selectedTransaction}){
-    return(
-        <></>
-    );
+export default function TransactionList({ selectedTransactions, clearSelectedTransactions }) {
+  return (
+    <div className="w-1/3">
+      <h2 className="text-xl mb-1">Transaction List</h2>
+      <div className="border border-blue-500 p-4 rounded-xl">
+        <ul className="flex flex-col">
+          {selectedTransactions.length>0 ? selectedTransactions.sort((a,b)=> a.name.localeCompare(b.name)).map((t, index) => (
+            <li key={index} className="flex justify-between my-[3px]">
+              <span>{t.name}</span>
+              {t.quantity > 1 && <span>Qty: {t.quantity}</span>}
+              <span>${parseFloat(t.amount) * parseInt(t.quantity)}</span>
+            </li>
+          )): <li className="my-[3px]">No transactions selected.</li>}
+        </ul>
+        <div className="flex flex-col border-t border-blue-500">
+          <div className="flex items-center justify-between my-[3px]">
+            <span>Total:</span>
+            <span>${selectedTransactions.reduce((sum, t)=> sum + parseFloat(t.amount) * parseInt(t.quantity),0)}</span>
+          </div>
+          <div className="flex items-center justify-between my-[3px]">
+            <span>Total Fees:</span>
+            <span>${selectedTransactions.reduce((sum, t)=> sum + parseFloat(t.fees),0)}</span>
+          </div>
+          <div className="flex items-center justify-between my-[3px] border-t border-blue-500">
+            <span>Grand Total:</span>
+            <span>${selectedTransactions.reduce((sum, t)=> sum + parseFloat(t.amount) * parseInt(t.quantity) + parseFloat(t.fees),0)}</span>
+          </div>
+          <div className="flex items-center justify-between my-[3px]">
+            <button className="p-2 rounded-xl bg-blue-500 text-white hover:bg-blue-100" onClick={()=>clearSelectedTransactions()}>Clear</button>
+            <button className="p-2 rounded-xl bg-blue-500 text-white hover:bg-blue-100">Complete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
