@@ -12,3 +12,51 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
+/* Add these styles to your main CSS file (e.g., globals.css or index.css) */
+
+/* 1. Print Defaults (from the blog post) */
+@page {
+  margin: 0; /* Disable default margins */
+  size: A4 portrait; /* Set the page size */
+}
+* {
+  /* Force background colors to print */
+  -webkit-print-color-adjust: exact !important; 
+  color-adjust: exact !important;
+}
+
+/* 2. AGGRESSIVE COLOR OVERRIDE (Fixes the oklch/lab error) */
+/* Target the problematic colors with supported hex values */
+@media print, screen {
+    /* Main Background and Text */
+    .bg-white {
+        background-color: #ffffff !important;
+    }
+    .text-gray-800 {
+        color: #1f2937 !important;
+    }
+    .text-gray-700 {
+        color: #374151 !important;
+    }
+    /* Borders */
+    .border-gray-300 {
+        border-color: #d1d5db !important;
+    }
+    .border-gray-400 {
+        border-color: #9ca3af !important;
+    }
+    /* Accent Colors (Blue/Green) */
+    .text-blue-600 {
+        color: #2563eb !important;
+    }
+    .bg-blue-600 {
+        background-color: #2563eb !important;
+    }
+    .text-green-700 {
+        color: #047857 !important;
+    }
+    .text-white {
+        color: #ffffff !important;
+    }
+}

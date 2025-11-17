@@ -102,7 +102,7 @@ export default function TransactionList({
       )}
       {openReceiptModal && (
         <ReceiptModal
-          closeReceiptModal={()=>setOpenReceiptModal(false)}
+          closeReceiptModal={()=>{setOpenReceiptModal(false); setPaymentDetails(null); clearSelectedTransactions();}}
           selectedTransactions={selectedTransactions}
           paymentDetails={paymentDetails}
         />

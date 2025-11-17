@@ -35,7 +35,7 @@ export default function NewTransactionModal({
       <div className="fixed inset-0 z-50 flex items-center justify-center">
         <div className="min-w-1/4 bg-blue-500 p-10 text-white rounded-xl shadow-lg">
           <div className="flex justify-between items-center text-white border-b p-1">
-            <h2 className="text-2xl">Add new transaction:</h2>
+            <h2 className="text-2xl">Add new transaction</h2>
             <button
               button="button"
               onClick={() => closeModal()}
