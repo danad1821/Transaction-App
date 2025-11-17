@@ -1,7 +1,7 @@
 import { IoMdClose } from "react-icons/io";
 import { useState, useMemo } from "react";
 
-export default function PaymentModal({ total, closePaymentModal }) {
+export default function PaymentModal({ total, closePaymentModal, setPaymentDetails, openReceiptModal }) {
   const totalAmount = parseFloat(total) || 0;
 
   const [payment, setPayment] = useState({ credit: "", debit: "", cash: "" });
@@ -32,7 +32,7 @@ export default function PaymentModal({ total, closePaymentModal }) {
 
     return {
       totalPaid: paidWithInterest,
-      remaining: remainingBalance > 0 ? remainingBalance : 0, // Remaining must be non-negative
+      remaining: remainingBalance > 0 ? remainingBalance : 0, 
     };
   }, [payment, totalAmount]);
 
@@ -118,13 +118,13 @@ export default function PaymentModal({ total, closePaymentModal }) {
       ...payment, 
       creditDetails: parseValue(payment.credit) > 0 ? creditInputs : null,
       debitDetails: parseValue(payment.debit) > 0 ? debitInputs : null,
-      change: parseValue(payment.cash) - totalAmount, 
+      change: parseValue(payment.cash) > (totalAmount - parseValue(payment.credit) - parseValue(payment.debit)), 
     };
 
-    console.log("Processing Payment:", finalPaymentData);
-
-    
+    setPaymentDetails(finalPaymentData);
     closePaymentModal();
+    openReceiptModal();
+    
   };
 
   const isPayButtonDisabled = totalPaid < totalAmount;
@@ -136,7 +136,7 @@ export default function PaymentModal({ total, closePaymentModal }) {
         <div className="min-w-1/4 max-h-full overflow-y-scroll bg-blue-500 p-10 text-white rounded-xl shadow-lg">
           
           <div className="flex justify-between items-center text-white border-b p-1">
-            <h2 className="text-2xl">Payment Methods:</h2>
+            <h2 className="text-2xl">Payment Methods</h2>
             <button
               type="button" 
               className="text-xl bg-gray-500 px-3 py-2 rounded-xl"

@@ -1,10 +1,13 @@
 import PaymentModal from "./PaymentModal";
+import ReceiptModal from "./ReceiptModal";
 import { useState } from "react";
 export default function TransactionList({
   selectedTransactions,
   clearSelectedTransactions,
 }) {
   const [openPaymentModal, setOpenPaymentModal] = useState(false);
+  const [openReceiptModal, setOpenReceiptModal] = useState(false);
+  const [paymentDetails, setPaymentDetails] = useState(null);
   const closePaymentModal = () => setOpenPaymentModal(false);
   const completeTransaction = () => {};
 
@@ -83,13 +86,27 @@ export default function TransactionList({
           </div>
         </div>
       </div>
-      {openPaymentModal && <PaymentModal total={selectedTransactions.reduce(
-                  (sum, t) =>
-                    sum +
-                    parseFloat(t.amount) * parseInt(t.quantity) +
-                    parseFloat(t.fees) * parseInt(t.quantity),
-                  0
-                )} closePaymentModal={closePaymentModal} />}
+      {openPaymentModal && (
+        <PaymentModal
+          total={selectedTransactions.reduce(
+            (sum, t) =>
+              sum +
+              parseFloat(t.amount) * parseInt(t.quantity) +
+              parseFloat(t.fees) * parseInt(t.quantity),
+            0
+          )}
+          closePaymentModal={closePaymentModal}
+          setPaymentDetails={setPaymentDetails}
+          openReceiptModal = {()=>setOpenReceiptModal(true)}
+        />
+      )}
+      {openReceiptModal && (
+        <ReceiptModal
+          closeReceiptModal={()=>setOpenReceiptModal(false)}
+          selectedTransactions={selectedTransactions}
+          paymentDetails={paymentDetails}
+        />
+      )}
     </>
   );
 }
