@@ -13,7 +13,7 @@ export default function TransactionList({
 
   return (
     <>
-      <div className="w-1/3">
+      <div className="min-w-[310px]">
         <h2 className="text-xl mb-1">Transaction List</h2>
         <div className="border border-blue-500 p-4 rounded-xl">
           <ul className="flex flex-col">

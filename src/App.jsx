@@ -35,7 +35,7 @@ function App() {
   return (
     <>
       <Header/>
-      <div className="m-5 flex justify-around">
+      <div className="m-5 flex justify-around flex-wrap gap-2">
         <AddTransactionButton addToAllTransactions={addToAllTransactions} />
         <POSMenu allTransactions={allTransactions} selectTransaction={selectTransaction} />
         <TransactionList selectedTransactions={selectedTransactions} clearSelectedTransactions={clearSelectedTransactions} />
